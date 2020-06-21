@@ -1,0 +1,59 @@
+.Home
+  &__Container
+    padding: 20px 10px 0px
+
+  &__Text
+    display: flex
+    flex-direction: column
+    width: 100%
+
+    &__Title
+      margin-bottom: 20px
+
+    &__Subtitle
+      align-self: baseline
+      flex-shrink: 0
+
+      & h2
+        font-size: 20px
+        text-align: right
+
+.JobCard
+  &__LeftWrapper
+    align-items: center
+    display: flex
+
+  &__ImageContainer
+    width: 54px
+
+    &__Wrapper
+
+      &__Cropper
+        width: 54px
+        height: 54px
+        position: relative
+        overflow: hidden
+        border-radius: 50%
+
+        & img
+          width: 50px
+
+  &__TextContainer
+    display: flex
+    flex-direction: column
+    margin-left: 21px
+
+    &__Title
+      margin: 3px 0
+
+      & h2
+       color: #0C14B1
+      font-size: 16px
+      font-weight: bold
+
+  &__IconContainer
+    &__Wrapper
+      & svg
+        overflow: hidden
+        vertical-align: middle
+
