@@ -134,5 +134,4 @@ class JobsContainerList extends Component {
     );
   }
 }
-
 export default withRouter(JobsContainerList);
