@@ -26,5 +26,5 @@ yarn-error.log*
 #Build Heroku
 src/*
 public/*
-build/static/css/*.map
+build/static/css*.map
 build/static/js/*.map
