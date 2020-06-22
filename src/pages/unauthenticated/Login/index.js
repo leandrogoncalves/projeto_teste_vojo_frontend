@@ -17,6 +17,8 @@ import "./style.sass";
 
 import { defaultInputState } from "../../../utils/formDefaultStates";
 import stateKeysToArray from "../../../utils/stateKeysToArray";
+import api from "../../../services/api";
+import { login } from "../../../services/auth";
 
 class Login extends Component {
   constructor() {
@@ -85,17 +87,19 @@ class Login extends Component {
   };
 
   handleShowErrorOnFields = async (fieldKeys) => {
-    for (let i = 0; i < fieldKeys.length; i++) {
-      const field = fieldKeys[i];
-      await this.setState({
-        fields: {
-          ...this.state.fields,
-          [field]: {
-            ...this.state.fields[field],
-            showError: true,
+    if (!this.state.isFieldsValid) {
+      for (let i = 0; i < fieldKeys.length; i++) {
+        const field = fieldKeys[i];
+        await this.setState({
+          fields: {
+            ...this.state.fields,
+            [field]: {
+              ...this.state.fields[field],
+              showError: true,
+            },
           },
-        },
-      });
+        });
+      }
     }
   };
 
@@ -105,6 +109,7 @@ class Login extends Component {
     await this.checkIsFieldsValid(fieldKeys);
     await this.handleShowErrorOnFields(fieldKeys);
 
+
     if (this.state.isFieldsValid) {
       const requestData = this.createRequestObject();
       await this.loginSet(requestData);
@@ -112,56 +117,62 @@ class Login extends Component {
   };
 
   handleRequestErrors = async () => {
-    const { error } = this.state.loginData;
-    const { fields } = error;
-    if (error && fields) {
-      const errorFields = stateKeysToArray(fields);
-      const newFieldObject = {};
+    // const { error } = this.state.loginData;
+    // const { fields } = error;
+    // if (error && fields) {
+    //   const errorFields = stateKeysToArray(fields);
+    //   const newFieldObject = {};
 
-      for (let i = 0; i < errorFields.length; i++) {
-        const currentErrorField = errorFields[i];
-        newFieldObject[currentErrorField] = {
-          ...this.state.fields[currentErrorField],
-          errorMessage: fields[currentErrorField],
-          showError: true,
-        };
-      }
+    //   for (let i = 0; i < errorFields.length; i++) {
+    //     const currentErrorField = errorFields[i];
+    //     newFieldObject[currentErrorField] = {
+    //       ...this.state.fields[currentErrorField],
+    //       errorMessage: fields[currentErrorField],
+    //       showError: true,
+    //     };
+    //   }
 
-      await this.setState({
-        fields: {
-          ...this.state.fields,
-          ...newFieldObject,
-        },
-      });
-    }
+    //   await this.setState({
+    //     fields: {
+    //       ...this.state.fields,
+    //       ...newFieldObject,
+    //     },
+    //   });
+    // }
   };
 
   loginSet = async (data) => {
-    const response = await fetch(`${process.env.REACT_APP_API}/v3/auth/login`, {
-      method: "POST",
-      body: JSON.stringify(data),
+   await api.post(`${process.env.REACT_APP_API}/v3/auth/login`, data)
+    .then(async (response) =>{
+        await this.setState({
+          loginData: {
+            error: null,
+            isLoading: false,
+            success: true,
+          },
+        });
+        const token = response.headers['vojo-authorization'];
+
+        if (!token) {
+          throw new Error("Erro no login")
+        }
+        login(token);
+        this.props.history.push("/panel");
+    })
+    .catch(async (error)=>{
+      console.log(error);
+
+      console.log(error.response);
+
+        await this.setState({
+          loginData: {
+            error: '',
+            isLoading: false,
+            success: false,
+          },
+        });
     });
 
-    const resData = await response.json();
-
-    if (!resData.error) {
-      await this.setState({
-        loginData: {
-          error: null,
-          isLoading: false,
-          success: true,
-        },
-      });
-    } else {
-      console.log(resData);
-      await this.setState({
-        loginData: {
-          error: resData.error,
-          isLoading: false,
-          success: false,
-        },
-      });
-    }
   };
 
   render() {

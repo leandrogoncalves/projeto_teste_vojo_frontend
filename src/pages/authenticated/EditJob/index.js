@@ -1,21 +1,20 @@
 import React, { Component } from "react";
-import { Container, Header, Footer, Typography, themes  } from "@mindlab-vojo/component-library";
+import {
+  Container,
+  Header,
+  Footer,
+  Typography,
+  themes,
+} from "@mindlab-vojo/component-library";
 
 import { MdExitToApp } from "react-icons/md";
 import "./style.sass";
-import JobsContainerList from "../../../componets/JobsContainerList";
-import { Button, ContainerTop } from "./styles";
-import { logout } from "../../../services/auth";
+import { ContainerTop, Button } from "./styles";
 
-export default class Panel extends Component {
-  handleClickJob = (id) => {
-    this.props.history.push(`/panel/job/${id}`);
-  };
-
-  handleLogout = (e) => {
-    logout();
-    this.props.history.push("/");
-  };
+export default class EditJob extends Component {
+  // handleClickJob = () => {
+  //   this.props.history.push(`/panel`);
+  // }
 
   render() {
     return (
@@ -39,7 +38,19 @@ export default class Panel extends Component {
             <MdExitToApp size="30" color="#999" />
           </Button>
         </ContainerTop>
-        <JobsContainerList onClick={this.handleClickJob} />
+        <ContainerTop>
+          <div className="Panel__Container">
+            <div className="Panel__Text__Title">
+              <Typography
+                tag="h2"
+                type="subtitle"
+                color={themes.vojo.colors.primaryColor}
+              >
+                <strong>Editar vaga</strong>
+              </Typography>
+            </div>
+          </div>
+        </ContainerTop>
         <Container maxWidth="full">
           <Footer />
         </Container>

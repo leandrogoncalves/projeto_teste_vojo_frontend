@@ -35,13 +35,3 @@ export const JobCard = styled.div`
   position: relative;
   width: 100%;
 `;
-
-export const Loading = styled.div`
-  color: #0C14B1;
-  font-size: 30px;
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50vh;
-`;

@@ -1,6 +1,6 @@
 export const defaultInputState = {
   errorMessage: '',
-  isValid: false,
+  isValid: true,
   maskedValue: '',
   showError: false,
   value: ''
