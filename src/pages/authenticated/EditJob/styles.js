@@ -11,8 +11,7 @@ export const ContainerTop = styled.div`
   padding: 0 15px;
 `;
 
-
-export const Button = styled.button`
+export const ButtonBack = styled.button`
   width: 60px;
   height: 60px;
   border-radius: 60px;
@@ -30,4 +29,3 @@ export const Button = styled.button`
     background-color: ${({ color }) => darken(0.07, color)};
   }
 `;
-

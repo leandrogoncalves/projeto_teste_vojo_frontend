@@ -1,11 +1,18 @@
 import React, { Component } from "react";
-import { Container, Header, Footer, Typography, themes  } from "@mindlab-vojo/component-library";
+import {
+  Container,
+  Header,
+  Footer,
+  Typography,
+  themes,
+} from "@mindlab-vojo/component-library";
 
 import { MdExitToApp } from "react-icons/md";
 import "./style.sass";
 import JobsContainerList from "../../../componets/JobsContainerList";
 import { Button, ContainerTop } from "./styles";
 import { logout } from "../../../services/auth";
+import { Link } from "react-router-dom";
 
 export default class Panel extends Component {
   handleClickJob = (id) => {
@@ -21,7 +28,9 @@ export default class Panel extends Component {
     return (
       <Container maxWidth="full">
         <Container maxWidth="full">
-          <Header />
+          <Link to="/" style={{ width: "100%" }}>
+            <Header />
+          </Link>
         </Container>
         <ContainerTop>
           <div className="Panel__Container">

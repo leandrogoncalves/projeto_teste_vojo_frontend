@@ -7,7 +7,7 @@ export const ContainerList = styled.div`
   position: relative;
   width: 100%;
   max-width: 960px;
-  min-height: calc(100vh - 196px);
+  min-height: calc(100vh - 176px);
   padding: 0 15px;
 `;
 
@@ -19,9 +19,9 @@ export const JobList = styled.div`
 
 export const JobCard = styled.div`
   align-items: center;
-  background: #FFF;
+  background: #fff;
   border-radius: 8px;
-  box-shadow: 0px 1px 6px rgba(0,0,0,0.25);
+  box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.25);
   cursor: pointer;
   display: flex;
   flex-direction: row;

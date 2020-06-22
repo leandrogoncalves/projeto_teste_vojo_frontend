@@ -9,22 +9,41 @@ import {
 
 import { MdExitToApp } from "react-icons/md";
 import "./style.sass";
-import { ContainerTop, Button } from "./styles";
+import { ContainerTop, ButtonBack } from "./styles";
+import JobForm from "../../../componets/JobForm";
+import { Link } from "react-router-dom";
 
 export default class EditJob extends Component {
-  // handleClickJob = () => {
-  //   this.props.history.push(`/panel`);
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: "Editar",
+    };
+  }
+
+  componentDidMount() {
+    const { params } = this.props.match;
+
+    if (!params.id) {
+      this.setState({
+        text: "Inserir",
+      });
+    }
+  }
 
   render() {
+    const { text } = this.state;
+
     return (
       <Container maxWidth="full">
         <Container maxWidth="full">
-          <Header />
+          <Link to="/" style={{ width: "100%" }}>
+            <Header />
+          </Link>
         </Container>
         <ContainerTop>
-          <div className="Panel__Container">
-            <div className="Panel__Text__Title">
+          <div className="EditJob__Container">
+            <div className="EditJob__Text__Title">
               <Typography
                 tag="h1"
                 type="title"
@@ -34,21 +53,26 @@ export default class EditJob extends Component {
               </Typography>
             </div>
           </div>
-          <Button color="#fff" onClick={this.handleLogout}>
+          <ButtonBack color="#fff" onClick={this.handleLogout}>
             <MdExitToApp size="30" color="#999" />
-          </Button>
+          </ButtonBack>
         </ContainerTop>
         <ContainerTop>
-          <div className="Panel__Container">
-            <div className="Panel__Text__Title">
+          <div className="EditJob__Container">
+            <div className="EditJob__Text__Title">
               <Typography
                 tag="h2"
                 type="subtitle"
                 color={themes.vojo.colors.primaryColor}
               >
-                <strong>Editar vaga</strong>
+                <strong>{text} vaga</strong>
               </Typography>
             </div>
+          </div>
+        </ContainerTop>
+        <ContainerTop>
+          <div className="EditJob__Container__Forms">
+            <JobForm />
           </div>
         </ContainerTop>
         <Container maxWidth="full">

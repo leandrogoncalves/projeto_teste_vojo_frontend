@@ -1,21 +1,35 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import { Typography, themes } from "@mindlab-vojo/component-library";
+import Button from "@material-ui/core/Button";
+import { BsPlus } from "react-icons/bs";
 import { ContainerList, JobList, JobCard } from "./styles";
 import vojoIcon from "../../assets/images/vojo_icon.png";
 import Loading from "../Loading";
 import api from "../../services/api";
+import { isAuthenticated } from "../../services/auth";
 
-export default class JobsContainerList extends Component {
+class JobsContainerList extends Component {
   constructor(props) {
     super(props);
     this.handleClickJob = props.onClick;
     this.state = {
       jobs: [],
       loading: true,
+      authenticated: false,
+      pathName: this.props.location.pathname.replace("/", ""),
     };
   }
 
   async componentDidMount() {
+    const authenticated = isAuthenticated();
+
+    if (authenticated) {
+      this.setState({
+        authenticated,
+      });
+    }
+
     const { data } = await api.get(`/v3/jobs`);
 
     this.setState({
@@ -25,7 +39,7 @@ export default class JobsContainerList extends Component {
   }
 
   render() {
-    const { jobs, loading } = this.state;
+    const { jobs, loading, authenticated, pathName } = this.state;
 
     return (
       <ContainerList>
@@ -38,6 +52,26 @@ export default class JobsContainerList extends Component {
             <strong>{jobs.length} Vagas disponiveis</strong>
           </Typography>
         </div>
+
+        {authenticated && pathName === "panel" ? (
+          <Button
+            variant="contained"
+            color="primary"
+            style={{
+              width: "13px",
+              borderRadius: "50%",
+              height: "60px",
+              position: "absolute",
+              bottom: "20px",
+              right: "40px",
+            }}
+            href="/panel/job"
+          >
+            <BsPlus size={40} />
+          </Button>
+        ) : (
+          ""
+        )}
 
         {loading ? (
           <Loading>Carregando ...</Loading>
@@ -100,3 +134,5 @@ export default class JobsContainerList extends Component {
     );
   }
 }
+
+export default withRouter(JobsContainerList);

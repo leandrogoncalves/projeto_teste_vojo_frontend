@@ -8,9 +8,9 @@ import {
 } from "@mindlab-vojo/component-library";
 import Header from "../../../componets/Header";
 
+import "./style.sass";
 
 export default class NotFound extends Component {
-
   render() {
     return (
       <Container maxWidth="full">
@@ -18,8 +18,8 @@ export default class NotFound extends Component {
           <Header />
         </Container>
         <Container maxWidth="desktop">
-          <div className="Job__Container">
-            <div className="Job__Text__Title">
+          <div className="NotFound__Container">
+            <div className="NotFound__Text__Title">
               <Typography
                 tag="h1"
                 type="title"

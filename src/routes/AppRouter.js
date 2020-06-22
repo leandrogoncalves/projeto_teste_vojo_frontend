@@ -13,7 +13,7 @@ import EditJob from "../pages/authenticated/EditJob";
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
-    render={props =>
+    render={(props) =>
       isAuthenticated() ? (
         <Component {...props} />
       ) : (
@@ -29,8 +29,8 @@ const AppRouter = () => (
       <Route exact path="/" component={Homepage} />
       <Route exact path="/login" component={Login} />
       <Route path="/job/:id?" component={Job} />
-      <PrivateRoute exact path="/panel" component={Panel}/>
-      <PrivateRoute exact path="/panel/job/:id" component={EditJob}/>
+      <PrivateRoute exact path="/panel" component={Panel} />
+      <PrivateRoute exact path="/panel/job/:id?" component={EditJob} />
       <Route component={NotFound} />
     </Switch>
   </BrowserRouter>

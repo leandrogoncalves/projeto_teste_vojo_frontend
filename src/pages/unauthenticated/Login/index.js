@@ -109,7 +109,6 @@ class Login extends Component {
     await this.checkIsFieldsValid(fieldKeys);
     await this.handleShowErrorOnFields(fieldKeys);
 
-
     if (this.state.isFieldsValid) {
       const requestData = this.createRequestObject();
       await this.loginSet(requestData);
@@ -122,7 +121,6 @@ class Login extends Component {
     // if (error && fields) {
     //   const errorFields = stateKeysToArray(fields);
     //   const newFieldObject = {};
-
     //   for (let i = 0; i < errorFields.length; i++) {
     //     const currentErrorField = errorFields[i];
     //     newFieldObject[currentErrorField] = {
@@ -131,7 +129,6 @@ class Login extends Component {
     //       showError: true,
     //     };
     //   }
-
     //   await this.setState({
     //     fields: {
     //       ...this.state.fields,
@@ -142,8 +139,9 @@ class Login extends Component {
   };
 
   loginSet = async (data) => {
-   await api.post(`${process.env.REACT_APP_API}/v3/auth/login`, data)
-    .then(async (response) =>{
+    await api
+      .post(`${process.env.REACT_APP_API}/v3/auth/login`, data)
+      .then(async (response) => {
         await this.setState({
           loginData: {
             error: null,
@@ -151,28 +149,25 @@ class Login extends Component {
             success: true,
           },
         });
-        const token = response.headers['vojo-authorization'];
+        const token = response.headers["vojo-authorization"];
 
         if (!token) {
-          throw new Error("Erro no login")
+          throw new Error("Erro no login");
         }
         login(token);
         this.props.history.push("/panel");
-    })
-    .catch(async (error)=>{
-      console.log(error);
-
-      console.log(error.response);
+      })
+      .catch(async (error) => {
+        console.log(error.response);
 
         await this.setState({
           loginData: {
-            error: '',
+            error: "Erro ao efetuar login",
             isLoading: false,
             success: false,
           },
         });
-    });
-
+      });
   };
 
   render() {
