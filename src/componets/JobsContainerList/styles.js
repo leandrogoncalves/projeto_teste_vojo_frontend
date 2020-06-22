@@ -7,7 +7,7 @@ export const ContainerList = styled.div`
   position: relative;
   width: 100%;
   max-width: 960px;
-  min-height: calc(100vh - 176px);
+  min-height: calc(100vh - 196px);
   padding: 0 15px;
 `;
 
